@@ -1,7 +1,7 @@
 let express = require("express");
 let app = express();
-let cors = require("cors");
-let port = 8000;
+const cors = require("cors");
+const port = 8000;
 
 app.use(cors());
 
