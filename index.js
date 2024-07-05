@@ -175,16 +175,18 @@ let stocks = [
 function sortStockHighToLowOrLowToHighPrice(stock1, stock2, pricing) {
   if (pricing === "high-to-low") {
     return stock2.price - stock1.price;
-  } else {
+  } else if (pricing === "low-to-high") {
     return stock1.price - stock2.price;
+  } else {
+    return 0;
   }
 }
 // Endpoint 1: Get the stocks sorted by pricing
 // Write an Express code snippet to sort the stocks based on the pricing low-to-high or high-to-low.
 app.get('/stocks/sort/pricing', (req, res) => {
-  //let pricing = req.query.pricing;
+  let pricing = req.query.pricing;
   let stockCopy = stocks.slice();
-  let sortedStock = stockCopy.sort(sortStockHighToLowOrLowToHighPrice)
+  let sortedStock = stockCopy.sort((stock1, stock2) => sortStockHighToLowOrLowToHighPrice(stock1, stock2, pricing));
 
   res.json({stocks: sortedStock});
 });
@@ -200,23 +202,31 @@ function sortStockHighToLowOrLowToHighGrowth(stock1, stock2, growth) {
 
 // Endpoint 2: Get the stocks sorted based on their Growth
 app.get('/stocks/sort/growth', (req, res) => {
-let growth = stocks.slice();
-  let result = growth.sort(sortStockHighToLowOrLowToHighGrowth);
+let growth = req.query.growth;
+let stockCopy = stocks.slice();
+  let result = stockCopy.sort((stock1, stock2) => sortStockHighToLowOrLowToHighGrowth(stock1, stock2, growth));
 
   res.json({stocks: result})
 });
 
 //function to sort stock based on alphabetical order
-function sortStockAlphabeticalOrder(stock1, stock2) {
-  return stock1.name.localeCompare(stock2.name);
+function sortStockAlphabeticalOrder(stock1, stock2, nameOrd) {
+  if (nameOrd === "A to Z") {
+    return stock1.name.localeCompare(stock2.name);
+  } else if (nameOrd === "Z to A") {
+    return stock2.name.localeCompare(stock1.name);
+  } else {
+    return 0;
+  }
 }
 
 // Endpoint 3: Get the stocks sorted based on the Stock Name (Alphabetically)
 app.get('/stocks/sort/name', (req, res) => {
-  let name = stocks.slice();
-  name.sort(sortStockAlphabeticalOrder);
+  let name = req.query.name;
+  let stockCopy = stocks.slice();
+  stockCopy.sort((stock1, stock2) => sortStockAlphabeticalOrder(stock1, stock2, name));
 
-  res.json({stocks: name});
+  res.json({stocks: stockCopy});
 });
 
 // function to filter based on NSE and BSE
