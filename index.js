@@ -172,8 +172,8 @@ let stocks = [
     
 
 // function to sort stock based on price high to low Or low to high
-function sortStockHighToLowOrLowToHighPrice(stock1, stock2, priceOrd) {
-  if (priceOrd === "high-to-low") {
+function sortStockHighToLowOrLowToHighPrice(stock1, stock2, pricing) {
+  if (pricing === "high-to-low") {
     return stock2.price - stock1.price;
   } else {
     return stock1.price - stock2.price;
