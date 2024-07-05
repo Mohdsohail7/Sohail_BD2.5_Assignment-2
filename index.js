@@ -187,7 +187,7 @@ app.get('/stocks/sort/pricing', (req, res) => {
   let stockCopy = stocks.slice();
   let sortedStock = stockCopy.sort(sortStockHighToLowOrLowToHighPrice)
 
-  res.json({stock: sortedStock});
+  res.json({stocks: sortedStock});
 });
 
 // function to sort stock based on growth  high to low Or low to high growth
@@ -200,7 +200,7 @@ app.get('/stocks/sort/growth', (req, res) => {
 let growth = stocks.slice();
   let result = growth.sort(sortStockHighToLowOrLowToHighGrowth);
 
-  res.json({sortedStock: result})
+  res.json({stocks: result})
 });
 
 //function to sort stock based on alphabetical order
@@ -213,7 +213,7 @@ app.get('/stocks/sort/name', (req, res) => {
   let name = stocks.slice();
   name.sort(sortStockAlphabeticalOrder);
 
-  res.json({stock: name});
+  res.json({stocks: name});
 });
 
 // function to filter based on NSE and BSE
@@ -226,7 +226,7 @@ app.get('/stocks/filter/exchange', (req, res) => {
   let exchange = req.query.exchange;
   let result = stocks.filter(stock => filterByExchange(stock, exchange));
 
-  res.json({stock: result});
+  res.json({stocks: result});
 });
 
 // function to filter stock based on industry
@@ -239,7 +239,7 @@ app.get('/stocks/filter/industry', (req, res) => {
   let industry = req.query.industry;
   let result = stocks.filter(stock => filterByIndustry(stock, industry));
 
-  res.json({ stocks: result });
+  res.json({stocks: result });
 });
 
 // Endpoint 6: Send all available stocks
