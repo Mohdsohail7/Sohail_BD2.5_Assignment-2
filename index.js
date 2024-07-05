@@ -213,9 +213,9 @@ let stockCopy = stocks.slice();
 
 //function to sort stock based on alphabetical order
 function sortStockAlphabeticalOrder(stock1, stock2, nameOrd) {
-  if (nameOrd === "A-Z") {
+  if (nameOrd === "a-z") {
     return stock1.name.localeCompare(stock2.name);
-  } else if (nameOrd === "Z-A") {
+  } else if (nameOrd === "z-a") {
     return stock2.name.localeCompare(stock1.name);
   } else {
     return 0;
