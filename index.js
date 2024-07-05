@@ -1,8 +1,7 @@
 let express = require("express");
 let app = express();
-const cors = require("cors");
-const port = 8000;
 
+const cors = require("cors");
 app.use(cors());
 
 // array of stocks
@@ -183,7 +182,7 @@ function sortStockHighToLowOrLowToHighPrice(stock1, stock2, priceOrd) {
 // Endpoint 1: Get the stocks sorted by pricing
 // Write an Express code snippet to sort the stocks based on the pricing low-to-high or high-to-low.
 app.get('/stocks/sort/pricing', (req, res) => {
-  let pricing = req.query.pricing;
+  //let pricing = req.query.pricing;
   let stockCopy = stocks.slice();
   let sortedStock = stockCopy.sort(sortStockHighToLowOrLowToHighPrice)
 
@@ -191,8 +190,12 @@ app.get('/stocks/sort/pricing', (req, res) => {
 });
 
 // function to sort stock based on growth  high to low Or low to high growth
-function sortStockHighToLowOrLowToHighGrowth(stock1, stock2) {
-  return stock1.growth - stock2.growth
+function sortStockHighToLowOrLowToHighGrowth(stock1, stock2, growth) {
+  if (growth === "high-to-low") {
+    return stock2.growth - stock1.growth;
+  } else {
+    return stock1.growth - stock2.growth;
+  }
 }
 
 // Endpoint 2: Get the stocks sorted based on their Growth
@@ -244,8 +247,10 @@ app.get('/stocks/filter/industry', (req, res) => {
 
 // Endpoint 6: Send all available stocks
 app.get('/stocks', (req, res) => {
-  res.json({allStocks: stocks});
+  res.json({stocks: stocks});
 });
+
+const port = 8000;
 
 // home route
 app.get('/', (req, res) => {
