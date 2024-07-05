@@ -195,8 +195,10 @@ app.get('/stocks/sort/pricing', (req, res) => {
 function sortStockHighToLowOrLowToHighGrowth(stock1, stock2, growth) {
   if (growth === "high-to-low") {
     return stock2.growth - stock1.growth;
-  } else {
+  } else if (growth === "low-to-high") {
     return stock1.growth - stock2.growth;
+  } else {
+    return 0;
   }
 }
 
